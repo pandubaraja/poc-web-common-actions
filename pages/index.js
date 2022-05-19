@@ -1,7 +1,17 @@
+import { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 
 export default function Home() {
+
+  const [externalUrl, setExternalUrl] = useState("http://google.com")
+  const [openNewWebViewUrl, setOpenNewWebViewUrl] = useState("http://blibli.com")
+
+  const forceExternal = (e) => {
+    if(!!window.native) {
+      window.native.forceExternal(externalUrl)
+    }
+  }
 
   const gotoPlayStore = (e) => {
     if(!!window.native) {
@@ -30,12 +40,22 @@ export default function Home() {
   const showLoading = (e) => {
     if(!!window.native) {
       window.native.showLoading()
+
+      setTimeout(function (){
+        window.native.hideLoading()
+      }, 2000)
     }
   }
 
   const hideLoading = (e) => {
     if(!!window.native) {
       window.native.hideLoading()
+    }
+  }
+
+  const openNewWebView = (e) => {
+    if(!!window.native) {
+      window.native.openNewWebView(openNewWebViewUrl)
     }
   }
 
@@ -52,7 +72,7 @@ export default function Home() {
           PoC Web Common Actions
         </div>
 
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 gap-2">
           <button onClick={closeWebView} className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
             Close WebView
           </button>
@@ -61,9 +81,6 @@ export default function Home() {
           </button>
           <button onClick={gotoPlayStore} className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
             Open PlayStore
-          </button>
-          <button className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
-            Force External
           </button>
           <button onClick={showNavbar} className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
             Show Navbar
@@ -77,6 +94,18 @@ export default function Home() {
           <button onClick={hideLoading} className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
             Hide Loading
           </button>
+          <div className="shadow-md rounded-md p-2 w-full bg-neutral-50 text-center">
+            <input value={openNewWebViewUrl} onChange={ e => setOpenNewWebViewUrl(e.target.value) } className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2" type="text"/>
+            <button onClick={openNewWebView} className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
+              Open New WebView
+            </button>
+          </div>
+          <div className="shadow-md rounded-md p-2 w-full bg-neutral-50 text-center">
+            <input value={externalUrl} onChange={ e => setExternalUrl(e.target.value) } className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2" type="text"/>
+            <button onClick={forceExternal} className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
+              Force External
+            </button>
+          </div>
         </div>
       </div>
     </div>

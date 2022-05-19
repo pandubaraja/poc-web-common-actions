@@ -24,7 +24,7 @@ export default function ForceExternal() {
           Force External
         </div>
 
-        <div class="grid grid-cols-1 gap-2">
+        <div className="grid grid-cols-1 gap-2">
           <input value={url} onChange={ e => setUrl(e.target.value) } className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"/>
           <button onClick={handleForceExternal} className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
             Open Force External

@@ -15,7 +15,7 @@ export default function BackOrClose() {
           Back Or Close
         </div>
 
-        <div class="grid grid-cols-1 gap-2">
+        <div className="grid grid-cols-1 gap-2">
           <div className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
             Back Or Close
           </div>

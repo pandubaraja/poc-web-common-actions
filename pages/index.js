@@ -52,7 +52,7 @@ export default function Home() {
           PoC Web Common Actions
         </div>
 
-        <div class="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-2">
           <button onClick={closeWebView} className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
             Close WebView
           </button>

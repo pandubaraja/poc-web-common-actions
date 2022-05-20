@@ -4,8 +4,15 @@ import Image from 'next/image'
 
 export default function Home() {
 
-  const [externalUrl, setExternalUrl] = useState("http://google.com")
-  const [openNewWebViewUrl, setOpenNewWebViewUrl] = useState("http://blibli.com")
+  const [dialogContent, setDialogContent] = useState({
+    title: "Title",
+    body: "Body" ,
+    buttonText: "Button Text"
+  })
+  const [title, setTitle] = useState("tiket.com")
+  const [snackbarMessage, setSnackbarMessage] = useState("Hello from Snackbar")
+  const [externalUrl, setExternalUrl] = useState("https://google.com")
+  const [openNewWebViewUrl, setOpenNewWebViewUrl] = useState("https://blibli.com")
 
   const forceExternal = (e) => {
     if(!!window.native) {
@@ -59,6 +66,37 @@ export default function Home() {
     }
   }
 
+  const setTitleWebView = (e) => {
+    if(!!window.native) {
+      window.native.setTitle(title)
+    }
+  }
+
+  const showSnackbarDefault = (e) => {
+    if(!!window.native) {
+      window.native.showSnackBarDefault(snackbarMessage)
+    }
+  }
+
+  const showSnackbarError = (e) => {
+    if(!!window.native) {
+      window.native.showSnackBarError(snackbarMessage)
+    }
+  }
+
+  const showSnackbarSuccess = (e) => {
+    if(!!window.native) {
+      window.native.showSnackBarSuccess(snackbarMessage)
+    }
+  }
+
+  const showDialog = (e) => {
+    console.log(dialogContent)
+    if(!!window.native) {
+      window.native.showDialog(dialogContent.title, dialogContent.body, dialogContent.buttonText)
+    }
+  }
+
   return (
     <div>
       <Head>
@@ -104,6 +142,38 @@ export default function Home() {
             <input value={externalUrl} onChange={ e => setExternalUrl(e.target.value) } className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2" type="text"/>
             <button onClick={forceExternal} className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
               Force External
+            </button>
+          </div>
+          <div className="shadow-md rounded-md p-2 w-full bg-neutral-50 text-center">
+            <input value={title} onChange={ e => setTitle(e.target.value) } className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2" type="text"/>
+            <button onClick={setTitleWebView} className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
+              Set Title
+            </button>
+          </div>
+          <div className="shadow-md rounded-md p-2 w-full bg-neutral-50 text-center">
+            <input value={snackbarMessage} onChange={ e => setSnackbarMessage(e.target.value) } className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2" type="text"/>
+            <button onClick={showSnackbarDefault} className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
+              Show SnackBar Default
+            </button>
+          </div>
+          <div className="shadow-md rounded-md p-2 w-full bg-neutral-50 text-center">
+            <input value={snackbarMessage} onChange={ e => setSnackbarMessage(e.target.value) } className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2" type="text"/>
+            <button onClick={showSnackbarSuccess} className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
+              Show SnackBar Success
+            </button>
+          </div>
+          <div className="shadow-md rounded-md p-2 w-full bg-neutral-50 text-center">
+            <input value={snackbarMessage} onChange={ e => setSnackbarMessage(e.target.value) } className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2" type="text"/>
+            <button onClick={showSnackbarError} className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
+              Show SnackBar Error
+            </button>
+          </div>
+          <div className="shadow-md rounded-md p-2 w-full bg-neutral-50 text-center">
+            <input value={dialogContent.title} onChange={ e => setDialogContent({...dialogContent, title: e.target.value}) } className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2" type="text"/>
+            <input value={dialogContent.body} onChange={ e => setDialogContent({...dialogContent, body: e.target.value}) } className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2" type="text"/>
+            <input value={dialogContent.buttonText} onChange={ e => setDialogContent({...dialogContent, buttonText: e.target.value}) } className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2" type="text"/>
+            <button onClick={showDialog} className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
+              Show Dialog
             </button>
           </div>
         </div>

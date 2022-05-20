@@ -2,6 +2,18 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 export default function BackOrClose() {
+  const closeWebView = (e) => {
+    if(!!window.native) {
+      window.native.closeWebView()
+    }
+  }
+
+  const backOrClose = (e) => {
+    if(!!window.native) {
+      window.native.backOrClose()
+    }
+  }
+
   return (
     <div>
       <Head>
@@ -16,15 +28,12 @@ export default function BackOrClose() {
         </div>
 
         <div className="grid grid-cols-1 gap-2">
-          <div className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
+          <button onClick={backOrClose} className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
             Back Or Close
-          </div>
-          <div className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
-            Goto Dummy Page
-          </div>
-          <div className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
-            Goto Landing
-          </div>
+          </button>
+          <button onClick={closeWebView} className="shadow-md rounded-md p-2 w-full bg-neutral-50 active:bg-sky-300 text-center">
+            Close WebView
+          </button>
         </div>
       </div>
     </div>
